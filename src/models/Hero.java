@@ -14,28 +14,28 @@ public class Hero implements IHero{
     }
 
     public void moveLeft() {
-        if (x - MOVE_SIZE > 0) {
+        if (x - MOVE_SIZE > -1) {
             x -= MOVE_SIZE;
         }
 
     }
 
     public void moveRight() {
-        if (x + MOVE_SIZE < ManagementGame.MAP_SIZE_X) {
+        if (x + (SIZE + 12) + MOVE_SIZE < ManagementGame.MAP_SIZE_X ) {
             x += MOVE_SIZE;
         }
 
     }
 
     public void moveUp() {
-        if (y - MOVE_SIZE > 0) {
-            y += MOVE_SIZE;
+        if (y - MOVE_SIZE > -1) {
+            y -= MOVE_SIZE;
         }
     }
 
     public void moveDown() {
-        if (y + MOVE_SIZE < ManagementGame.MAP_SIZE_Y)
-        y -= MOVE_SIZE;
+        if (y + (SIZE + 32) + MOVE_SIZE < ManagementGame.MAP_SIZE_Y)
+        y += MOVE_SIZE;
     }
 
     @Override

@@ -5,27 +5,29 @@ import models.IHero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class PanelGame extends JPanel {
     private IHero heroData;
     public BufferedImage background;
 
-    public PanelGame(IHero heroData) {
+    public PanelGame(KeyListener event) {
+        addKeyListener(event);
+    }
+
+    public void init() {
+        background = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        requestFocusInWindow();
+    }
+
+    public void paintHero(IHero heroData){
         this.heroData = heroData;
-    }
-
-    public void init(){
-        background = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);
-        paintHero();
-    }
-
-    public void paintHero(){
         Graphics g = background.createGraphics();
         g.setColor(Color.CYAN);
         g.fillRect(0,0,getWidth(),getHeight());
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(heroData.getHeroPositionX(),heroData.getHeroPositionY(), Hero.SIZE,Hero.SIZE);
+        g.fillRect(this.heroData.getHeroPositionX(), this.heroData.getHeroPositionY(), Hero.SIZE,Hero.SIZE);
         repaint();
     }
 
