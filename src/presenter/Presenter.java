@@ -1,5 +1,6 @@
 package presenter;
 
+import models.Levels;
 import models.ManagementGame;
 import view.MainWindow;
 
@@ -10,12 +11,13 @@ import java.awt.event.KeyListener;
 
 public class Presenter implements ActionListener , KeyListener {
 
-    private ManagementGame mngGame;
-    private MainWindow window;
+    private final ManagementGame mngGame;
+    private final MainWindow window;
 
     public Presenter() {
+        Levels level = new Levels();
         mngGame = new ManagementGame();
-        window = new MainWindow(ManagementGame.MAP_SIZE_X, ManagementGame.MAP_SIZE_Y,this);
+        window = new MainWindow(level.levelOne(),this);
         window.refreshPanel(mngGame.getHeroData());
     }
 
@@ -45,4 +47,5 @@ public class Presenter implements ActionListener , KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
+
 }

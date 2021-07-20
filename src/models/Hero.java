@@ -1,41 +1,55 @@
 package models;
 
-public class Hero implements IHero{
+public class Hero implements IHero {
 
+    public static final int MOVE_SIZE = 3;
+    public static final int SIZE = 23;
+    public static final int X = 23;
+    public static final int Y = 23;
+    //public static final String IMG_PATH = "";*/
     private int x;
     private int y;
-    public static final int MOVE_SIZE = 5;
-    public static final int SIZE = 40;
-    public static final String IMG_PATH = "";
+    private final Levels levels;
 
     public Hero(int x, int y) {
         this.x = x;
         this.y = y;
+        levels = new Levels();
     }
 
     public void moveLeft() {
-        if (x - MOVE_SIZE > -1) {
+        int[][] level1 = levels.levelOne();
+        if (level1[y / Y][x / X] != 0) {
             x -= MOVE_SIZE;
         }
+
 
     }
 
     public void moveRight() {
-        if (x + (SIZE + 12) + MOVE_SIZE < ManagementGame.MAP_SIZE_X ) {
+        int[][] level1 = levels.levelOne();
+        if (level1[y / Y][x / X + 1] != 0) {
             x += MOVE_SIZE;
         }
+
 
     }
 
     public void moveUp() {
-        if (y - MOVE_SIZE > -1) {
+        int[][] level1 = levels.levelOne();
+
+
+        if (level1[y / Y][x / X] != 0) {
             y -= MOVE_SIZE;
+
         }
     }
 
     public void moveDown() {
-        if (y + (SIZE + 32) + MOVE_SIZE < ManagementGame.MAP_SIZE_Y)
-        y += MOVE_SIZE;
+        int[][] level1 = levels.levelOne();
+        if (level1[y / Y + 1][x / X] != 0) {
+            y += MOVE_SIZE;
+        }
     }
 
     @Override

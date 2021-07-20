@@ -9,10 +9,16 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class PanelGame extends JPanel {
-    private IHero heroData;
-    public BufferedImage background;
+    public static final int NUMBER_ROWS = 31;
+    public static final int NUMBER_COLUMNS = 60;
+    public static final int RECT_SIZE = 23;
+    private final int [][] levelOne;
+    private BufferedImage background;
 
-    public PanelGame(KeyListener event) {
+    //private Image backgroundWorld;
+    public PanelGame(KeyListener event,int [][] levelOne) {
+        this.levelOne = levelOne;
+        //backgroundWorld = new ImageIcon(getClass().getResource("/images/world.png")).getImage();
         addKeyListener(event);
     }
 
@@ -21,14 +27,28 @@ public class PanelGame extends JPanel {
         requestFocusInWindow();
     }
 
-    public void paintHero(IHero heroData){
-        this.heroData = heroData;
+    public void updateGame(IHero heroData){
         Graphics g = background.createGraphics();
-        g.setColor(Color.CYAN);
-        g.fillRect(0,0,getWidth(),getHeight());
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(this.heroData.getHeroPositionX(), this.heroData.getHeroPositionY(), Hero.SIZE,Hero.SIZE);
+        paintWorld(g);
+        paintHero(heroData,g);
         repaint();
+    }
+
+    private void paintHero(IHero heroData, Graphics g) {
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(heroData.getHeroPositionX(), heroData.getHeroPositionY(), Hero.SIZE,Hero.SIZE);
+    }
+
+    private void paintWorld(Graphics g) {
+        for (int i = 0; i < NUMBER_ROWS; i++) {
+            for (int j = 0; j < NUMBER_COLUMNS; j++) {
+                if (levelOne[i][j]!=0){
+                    g.setColor(Color.BLUE);
+                    g.fillRect(j * Hero.SIZE,i * Hero.SIZE, RECT_SIZE,RECT_SIZE);
+                   // g.drawImage(backgroundWorld,getWidth(),getHeight(),this);
+                }
+            }
+        }
     }
 
     @Override
