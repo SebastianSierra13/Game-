@@ -1,24 +1,28 @@
 package presenter;
 
-import models.Levels;
+import models.World;
 import models.ManagementGame;
 import view.MainWindow;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.TimeUnit;
 
-public class Presenter implements ActionListener , KeyListener {
+public class Presenter implements ActionListener, KeyListener {
 
     private final ManagementGame mngGame;
     private final MainWindow window;
 
     public Presenter() {
-        Levels level = new Levels();
+        World level = new World();
         mngGame = new ManagementGame();
-        window = new MainWindow(level.levelOne(),this);
-        window.refreshPanel(mngGame.getHeroData());
+        window = new MainWindow(level.levelOne(), this);
+        Timer timeUpdateEnemy = new Timer(1,
+                e -> window.updateGame(mngGame));
+        timeUpdateEnemy.start();
     }
 
     @Override
@@ -40,12 +44,13 @@ public class Presenter implements ActionListener , KeyListener {
             case KeyEvent.VK_UP, KeyEvent.VK_W -> mngGame.moveUp();
             case KeyEvent.VK_DOWN, KeyEvent.VK_S -> mngGame.moveDown();
         }
-        window.refreshPanel(mngGame.getHeroData());
+        window.updateGame(mngGame);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
     }
+
 
 }

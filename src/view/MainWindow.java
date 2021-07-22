@@ -1,6 +1,6 @@
 package view;
 
-import models.IHero;
+import models.IGame;
 import models.ManagementGame;
 
 import javax.swing.*;
@@ -26,8 +26,8 @@ public class MainWindow extends JFrame {
         pnlGame.init();
     }
 
-    public void refreshPanel(IHero heroData) {
-        pnlGame.updateGame(heroData);
+    public void updateGame(IGame gameData) {
+        pnlGame.updateGame(gameData);
     }
 
 }
